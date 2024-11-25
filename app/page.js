@@ -1,6 +1,7 @@
 import LoginForm from "./components/LoginForm";
 import { getServerSession } from "next-auth";
 import { redirect } from 'next/navigation';
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const Home = async () => {
   const session = await getServerSession({
