@@ -1,11 +1,47 @@
 import RegisterForm from "../components/RegisterForm";
 import { getServerSession } from "next-auth";
 import { redirect } from 'next/navigation';
-import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function Register() {
-  const session = await getServerSession(authOptions
-  );
+  const session = await getServerSession({
+    providers: [
+      CredentialsProvider({
+        name: 'credentials',
+        credentials: {},
+
+        async authorize(credentials) {
+          const { email, password } = credentials;
+
+          try {
+            await connectMongoDB();
+            const user = await User.findOne({ email });
+
+
+            if (!user) {
+              return null;
+            }
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            if (!passwordMatch) {
+              return null;
+            }
+
+            return user;
+          } catch (error) {
+            console.log(error);
+          }
+          return user;
+        },
+      })
+    ],
+    session: {
+      strategy: "jwt",
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+      signIn: '/'
+    }
+  })
 
   if (session) redirect('/dashboard');
 
