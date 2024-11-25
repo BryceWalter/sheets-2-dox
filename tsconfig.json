@@ -37,7 +37,9 @@
     "app/api/auth/[...nextauth]/route.ts",
     "app/Providers.js",
     "app/components/LoginForm.js",
-    "app/components/RegisterForm.js"
+    "app/components/RegisterForm.js",
+    "app/register/page.js",
+    "app/page.js"
   ],
   "exclude": [
     "node_modules"
