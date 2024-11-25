@@ -35,7 +35,9 @@
     ".next/types/**/*.ts",
     "lib/mondodb.js",
     "app/api/auth/[...nextauth]/route.ts",
-    "app/Providers.js"
+    "app/Providers.js",
+    "app/components/LoginForm.js",
+    "app/components/RegisterForm.js"
   ],
   "exclude": [
     "node_modules"
